@@ -62,7 +62,7 @@ class JSON:
         self.number_of_rows = len(self.csv_rows[1:])
      
     def _csv_dict(self):
-        # IF INDEX1 IS MORE THAN THE NUMBER OF ROWS THAN INDEX2 GOES UP BY ONE
+        # IF INDEX1 IS MORE THAN THE NUMBER OF ROWS THENN INDEX2 GOES UP BY ONE
         index1 = 0
         index2 = 0
         # Moves CSV into dict
