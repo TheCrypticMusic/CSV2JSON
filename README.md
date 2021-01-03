@@ -1,2 +1,2 @@
 # CSV2JSON
-Allows the user to convert a CSV file to JSON. This is made with NO BUILT-IN libraries. 
+Allows the user to convert a CSV file to JSON. This is made with NO BUILT-IN libraries that aid in CSV or JSON conversion. 
