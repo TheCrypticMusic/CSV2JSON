@@ -1,3 +1,10 @@
 MOCK_DATA.csv
 test.json
 MOCK_DATA.json
+MOCK_DATA-2_ANIMAL100.json
+MOCK_DATA_ANIMAL1000.json
+<_io.TextIOWrapper name='MOCK_DATA.json' mode='r' encoding='UTF-8'>.csv
+<_io.TextIOWrapper name='MOCK_DATA-2_ANIMAL100.json' mode='r' encoding='UTF-8'>.csv
+<_io.TextIOWrapper name='MOCK_DATA_ANIMAL1000.json' mode='r' encoding='UTF-8'>.csv
+test.csv
+test1.csv

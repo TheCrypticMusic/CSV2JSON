@@ -1,6 +1,15 @@
+import re
+
+
 class Converter:
 
     def convert(self, file, ext):
+        """
+        Enter a file you want to convert to either JSON or CSV. If you want to
+        convert a JSON file to CSV enter CSV as the extension (ext)\n
+        Example:
+        file="MOCK_DATA.json", ext="CSV"
+        """
         converter = self._get_converter(ext)
         with open(file, "r") as file:
             return converter(file)
@@ -14,14 +23,15 @@ class Converter:
             raise ValueError(format)
 
     def _convert_to_CSV(self, file):
-        pass
+        user_file = JSON2CSV(file)
+        return user_file.format_file()
 
     def _convert_to_JSON(self, file):
-        user_file = JSON(file)
+        user_file = CSV2JSON(file)
         return user_file.open_file()
 
 
-class JSON:
+class CSV2JSON:
 
     csv_dict = {}
     csv_data = []
@@ -99,4 +109,58 @@ class JSON:
                     f.write(line)
                 index2 += 1
 
-# TODO: Add JSON2CSV
+
+class JSON2CSV:
+
+    json_data = []
+    json_headers = []
+    
+    def __init__(self, file):
+        self.file = file
+
+    def format_file(self):
+        # self.json = re.sub(r'[\[\]{}}\n:]', "", self.file.read())
+        self.json = self.file.readlines()
+        for line in self.json:
+            line = re.sub(r'[\[\]{}}\n:]', "", line).split('"')
+            for item in line:
+                if item != "," and item != "":
+                    if "," in item:
+                        if "," == item[-1]:
+                            self.json_data.append(item.replace(",", ""))
+                        else:
+                            self.json_data.append(f'"{item}"')
+                    else:
+                        self.json_data.append(item)
+        for headers in range(0, len(self.json_data), 2):
+            if self.json_data[headers] not in self.json_headers:
+                self.json_headers.append(self.json_data[headers])
+            else:
+                break
+        for item in self.json_data:
+            if item in self.json_headers:
+                self.json_data.remove(item)
+        self.number_of_rows = len(self.json)
+        self.row_length = len(self.json_headers)
+        return self._to_csv()
+        
+    def _to_csv(self):
+        with open("test1.csv", "w") as f:
+            # row_number = row number
+            row_number = 0
+            # numbers of items in the entire JSON file
+            items = 0
+            item_counter = 0
+            f.write(",".join(self.json_headers))
+            f.write("\n")
+        
+            while row_number != self.number_of_rows:
+                f.write(f"{self.json_data[items]},")
+                items += 1
+                item_counter += 1
+                if item_counter == self.row_length - 1:
+                    f.write(f"{self.json_data[items]}")
+                    f.write("\n")
+                    items += 1
+                    row_number += 1
+                    item_counter = 0
